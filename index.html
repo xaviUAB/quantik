@@ -27,7 +27,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 10px;
-            /* Prevent pull-to-refresh on mobile to improve drag experience */
+            /* Evita el refresc en lliscar cap avall en mòbils per millorar l'experiència d'arrossegar */
             overscroll-behavior-y: contain; 
         }
 
@@ -54,7 +54,7 @@
             width: 100%;
         }
 
-        /* Scoreboard */
+        /* Marcador */
         .scoreboard {
             display: flex;
             justify-content: space-between;
@@ -75,7 +75,7 @@
 
         .score-val {
             font-size: 1.5rem;
-            color: var(--cpu-color); /* Updated to Brown */
+            color: var(--cpu-color); /* Color marró per als punts */
         }
 
         /* Controls */
@@ -106,7 +106,7 @@
             max-width: 350px;
         }
 
-        /* Board */
+        /* Tauler */
         .board {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -117,9 +117,8 @@
             border-radius: 4px;
             width: 100%;
             max-width: 340px;
-            aspect-ratio: 1 / 1; /* Keep square */
+            aspect-ratio: 1 / 1;
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
-            /* Prevent touch actions on board to allow drag */
             touch-action: none; 
         }
 
@@ -134,7 +133,7 @@
             transition: background-color 0.2s;
         }
 
-        /* Region Styling */
+        /* Estils de regions */
         .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(5), .cell:nth-child(6) { background-color: var(--region-1); }
         .cell:nth-child(3), .cell:nth-child(4), .cell:nth-child(7), .cell:nth-child(8) { background-color: var(--region-2); }
         .cell:nth-child(9), .cell:nth-child(10), .cell:nth-child(13), .cell:nth-child(14) { background-color: var(--region-2); }
@@ -144,13 +143,13 @@
             background-color: var(--win-color) !important;
         }
 
-        /* Pieces */
+        /* Peces */
         .piece {
             width: 85%;
             height: 85%;
             transition: transform 0.2s;
             filter: drop-shadow(4px 6px 4px rgba(0,0,0,0.6));
-            pointer-events: none; /* Allows clicks to pass through to cell */
+            pointer-events: none;
         }
         
         @keyframes popIn {
@@ -163,11 +162,10 @@
             animation: popIn 0.3s ease-out;
         }
 
-        /* Player Colors */
         .piece-white { color: var(--player-color); }
         .piece-black { color: var(--cpu-color); }
 
-        /* Inventory Panel */
+        /* Magatzem de peces (Inventory) */
         .inventory-panel {
             width: 100%;
             max-width: 350px;
@@ -181,7 +179,7 @@
             background-color: var(--region-2);
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: relative; /* Context for absolute label */
+            position: relative;
             min-height: 50px;
         }
 
@@ -194,10 +192,11 @@
             color: var(--player-color);
             font-weight: 900;
             text-transform: uppercase;
-            opacity: 0.2; /* Subtle watermark effect */
-            pointer-events: none; /* Click through */
+            opacity: 0.2;
+            pointer-events: none;
             white-space: nowrap;
             margin: 0;
+            padding: 0;
             z-index: 0;
         }
 
@@ -210,8 +209,8 @@
             border-radius: 4px;
             border: 2px solid transparent;
             transition: all 0.2s;
-            z-index: 1; /* Above label */
-            touch-action: none; /* Critical for dragging on mobile */
+            z-index: 1;
+            touch-action: none;
         }
         
         .inv-item:active {
@@ -238,7 +237,7 @@
             color: #1f2937;
         }
         
-        /* Drag Ghost */
+        /* Ghost per arrossegar */
         .drag-ghost {
             position: fixed;
             pointer-events: none;
@@ -249,10 +248,10 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Controls */
+        /* Botons */
         button {
-            background-color: var(--cpu-color); /* Updated to Brown */
-            color: white; /* Cream text for contrast */
+            background-color: var(--cpu-color);
+            color: white;
             border: none;
             padding: 10px 20px;
             font-size: 1rem;
@@ -263,7 +262,7 @@
         }
 
         button:hover:not(:disabled) {
-            background-color: #3e2b22; /* Darker brown */
+            background-color: #3e2b22;
         }
 
         button:disabled {
@@ -272,7 +271,7 @@
             opacity: 0.7;
         }
 
-        /* Modal */
+        /* Finestra Modal */
         .modal {
             display: none;
             position: fixed;
@@ -284,23 +283,33 @@
         }
         .modal-content {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 500px;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 85%;
             max-height: 80vh;
             overflow-y: auto;
             text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
         }
         .close-modal {
             float: right;
             cursor: pointer;
             font-size: 1.5rem;
+            margin-top: -10px;
         }
         
-        .match-winner-title {
+        .modal-title {
             color: var(--cpu-color);
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .modal-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
         /* SVG Shapes */
@@ -320,7 +329,7 @@
 
     <div class="game-container">
         
-        <!-- Scoreboard -->
+        <!-- Marcador -->
         <div class="scoreboard">
             <div class="score-box">
                 <span>Jugador</span>
@@ -332,7 +341,7 @@
             </div>
         </div>
 
-        <!-- Controls & Difficulty -->
+        <!-- Controls i Dificultat -->
         <div class="controls-bar">
             <label for="difficulty">Nivell CPU:</label>
             <select id="difficulty" onchange="changeDifficulty()">
@@ -344,73 +353,75 @@
             <button onclick="showRules()">Regles</button>
         </div>
 
-        <!-- CPU Inventory -->
+        <!-- Magatzem CPU -->
         <div class="inventory-panel">
             <div class="inventory-row" id="cpu-inventory">
                 <div class="inv-label-inside">CPU</div>
-                <!-- Populated by JS -->
             </div>
         </div>
 
         <div id="status">Selecciona o arrossega una peça</div>
 
-        <!-- Board -->
+        <!-- Tauler -->
         <div class="board" id="board">
-            <!-- 16 Cells generated by JS -->
+            <!-- 16 cel·les generades per JS -->
         </div>
 
-        <!-- Player Inventory -->
+        <!-- Magatzem Jugador -->
         <div class="inventory-panel">
             <div class="inventory-row" id="player-inventory">
                 <div class="inv-label-inside">JUGADOR</div>
-                <!-- Populated by JS -->
             </div>
         </div>
     </div>
 
-    <!-- Rules Modal -->
+    <!-- Modal de Regles -->
     <div id="rulesModal" class="modal">
         <div class="modal-content" style="text-align: left;">
             <span class="close-modal" onclick="closeModal('rulesModal')">&times;</span>
-            <h2>Com jugar a Quantik</h2>
+            <div class="modal-title">Com jugar a Quantik</div>
             <p><strong>Objectiu:</strong> Sigues el primer a posar la quarta forma diferent en una fila, columna o regió.</p>
             <p><strong>Com jugar:</strong></p>
             <ul>
                 <li>Fes clic o arrossega una peça al tauler.</li>
-                <li><strong>Prohibit:</strong> No pots posar una forma (ex: Esfera) en una línia/regió on l'oponent ja en tingui una.</li>
-                <li><strong>Permès:</strong> Pots posar una forma on tu ja en tinguis una.</li>
+                <li><strong>Prohibit:</strong> No pots posar una forma en una línia/regió on l'oponent ja en tingui una d'igual.</li>
+                <li><strong>Bloqueig:</strong> Si et quedes sense moviments legals, l'altre guanya la ronda.</li>
             </ul>
         </div>
     </div>
 
-    <!-- Match Over Modal -->
+    <!-- Modal de Missatges (Bloqueig o Final de Ronda) -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title" id="msg-title">Títol</div>
+            <p class="modal-text" id="msg-body">Còs del missatge</p>
+            <button onclick="closeModal('messageModal')">D'acord</button>
+        </div>
+    </div>
+
+    <!-- Modal de Final de Matx -->
     <div id="matchModal" class="modal">
         <div class="modal-content">
-            <h2 class="match-winner-title" id="match-winner-text">GUANYADOR!</h2>
-            <p id="match-msg">Felicitats, has guanyat el matx!</p>
+            <div class="modal-title" id="match-winner-text">GUANYADOR!</div>
+            <p class="modal-text" id="match-msg">Felicitats, has guanyat el matx!</p>
             <button onclick="resetMatch()">Jugar un altre matx</button>
         </div>
     </div>
 
     <script>
-        // --- AUDIO SYSTEM ---
+        // --- SISTEMA D'ÀUDIO ---
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         function playTone(freq, type, duration, vol = 0.1) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-            
             osc.type = type;
             osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            
             gainNode.gain.setValueAtTime(vol, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-            
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
-            
             osc.start();
             osc.stop(audioCtx.currentTime + duration);
         }
@@ -427,7 +438,7 @@
             }
         }
 
-        // --- GAME CONSTANTS & STATE ---
+        // --- ESTAT DEL JOC ---
         const SHAPES = ['sphere', 'cylinder', 'cube', 'cone'];
         const PLAYER = 'white'; 
         const CPU = 'black';
@@ -440,7 +451,7 @@
                 white: { sphere: 2, cylinder: 2, cube: 2, cone: 2 },
                 black: { sphere: 2, cylinder: 2, cube: 2, cone: 2 }
             },
-            selectedPiece: null, // For click-to-play
+            selectedPiece: null,
             gameOver: false,
             difficulty: 'medium',
             wins: { white: 0, black: 0 },
@@ -454,7 +465,7 @@
             cone: `<svg viewBox="0 0 100 100"><polygon points="50,10 85,90 15,90" fill="currentColor" /></svg>`
         };
 
-        // --- INITIALIZATION ---
+        // --- INICIALITZACIÓ ---
         function initGame() {
             renderBoard();
             renderInventories();
@@ -471,7 +482,7 @@
             gameState.difficulty = document.getElementById('difficulty').value;
         }
 
-        // --- LOGIC ---
+        // --- LÒGICA DE JOC ---
         function getRegion(index) {
             const row = Math.floor(index / 4);
             const col = index % 4;
@@ -486,9 +497,7 @@
             const startCol = (reg % 2 === 0) ? 0 : 2;
             const indices = [];
             for(let r=startRow; r<startRow+2; r++) {
-                for(let c=startCol; c<startCol+2; c++) {
-                    indices.push(r*4 + c);
-                }
+                for(let c=startCol; c<startCol+2; c++) indices.push(r*4 + c);
             }
             return indices;
         }
@@ -534,8 +543,7 @@
             return false;
         }
 
-        // --- INTERACTION ---
-
+        // --- INTERACCIÓ ---
         function selectPiece(shape) {
             if (gameState.gameOver || gameState.matchOver || gameState.turn !== PLAYER) return;
             if (gameState.inventory[PLAYER][shape] > 0) {
@@ -548,16 +556,8 @@
 
         function cellClicked(index) {
             if (gameState.gameOver || gameState.matchOver || gameState.turn !== PLAYER) return;
-            // Drag logic handles drops separately. This is for click-click interaction.
-            if (!gameState.selectedPiece) {
-                return; // Do nothing if just clicking board without selection
-            }
-            if (isMoveValid(index, gameState.selectedPiece, PLAYER)) {
-                executeMove(index, gameState.selectedPiece, PLAYER);
-            } else {
-                updateStatus("Moviment no vàlid (bloquejat)");
-                setTimeout(() => updateStatus(), 1000);
-            }
+            if (!gameState.selectedPiece) return;
+            if (isMoveValid(index, gameState.selectedPiece, PLAYER)) executeMove(index, gameState.selectedPiece, PLAYER);
         }
 
         function executeMove(index, shape, color) {
@@ -579,12 +579,15 @@
 
             gameState.turn = (color === PLAYER) ? CPU : PLAYER;
 
+            // Comprovació de bloqueig
             if (!hasLegalMoves(gameState.turn)) {
-                updateStatus("No hi ha moviments possibles.");
-                setTimeout(() => {
-                    handleRoundWin(color, []);
-                    alert(`${gameState.turn === PLAYER ? 'No tens' : 'La CPU no té'} moviments. Bloqueig!`);
-                }, 500);
+                // Si el jugador actual es queda bloquejat, l'altre guanya la ronda
+                const blockedPlayer = gameState.turn === PLAYER ? "Jugador" : "CPU";
+                const winnerColor = (gameState.turn === PLAYER) ? CPU : PLAYER;
+                const winnerName = (winnerColor === PLAYER) ? "Jugador" : "CPU";
+
+                showMessageModal("Bloqueig!", `El ${blockedPlayer} no té moviments possibles. Victòria per al ${winnerName}!`);
+                handleRoundWin(winnerColor, []);
                 return;
             }
 
@@ -592,29 +595,21 @@
             if (gameState.turn === CPU) setTimeout(cpuMove, 800);
         }
 
-        // --- DRAG AND DROP (MOBILE & DESKTOP) ---
+        // --- ARROSSEGAR (DRAG & DROP) ---
         let draggedShape = null;
         let dragGhost = null;
 
         function initDrag(e, shape) {
             if (gameState.gameOver || gameState.matchOver || gameState.turn !== PLAYER) return;
             if (gameState.inventory[PLAYER][shape] <= 0) return;
-
             draggedShape = shape;
-            
-            // Audio init on touch start
             if (audioCtx.state === 'suspended') audioCtx.resume();
-
-            // Create Visual Ghost
             dragGhost = document.createElement('div');
             dragGhost.className = 'drag-ghost piece piece-white';
             dragGhost.innerHTML = svgs[shape];
             document.body.appendChild(dragGhost);
-
             moveGhost(e);
-            
-            // Highlight drop zones (optional visual feedback)
-            gameState.selectedPiece = shape; // Select it visually too
+            gameState.selectedPiece = shape;
             renderInventories();
         }
 
@@ -628,38 +623,27 @@
 
         function endDrag(e) {
             if (!dragGhost) return;
-            
             const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
             const y = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-
-            // Find element below finger
-            dragGhost.hidden = true; // Hide ghost to peek underneath
+            dragGhost.hidden = true;
             const elemBelow = document.elementFromPoint(x, y);
             dragGhost.hidden = false;
-
-            // Check if it's a cell
             const cell = elemBelow ? elemBelow.closest('.cell') : null;
-            
             if (cell && cell.id) {
                 const index = parseInt(cell.id.replace('cell-', ''));
-                if (isMoveValid(index, draggedShape, PLAYER)) {
-                    executeMove(index, draggedShape, PLAYER);
-                } else {
-                    updateStatus("Moviment no vàlid");
-                }
+                if (isMoveValid(index, draggedShape, PLAYER)) executeMove(index, draggedShape, PLAYER);
+                else updateStatus("Moviment prohibit");
             } else {
-                gameState.selectedPiece = null; // Deselect if dropped nowhere
+                gameState.selectedPiece = null;
                 renderInventories();
                 updateStatus();
             }
-
-            // Cleanup
             if (dragGhost) dragGhost.remove();
             dragGhost = null;
             draggedShape = null;
         }
 
-        // --- GAME END ---
+        // --- FINAL DE PARTIDA ---
         function handleRoundWin(winnerColor, winningLine) {
             gameState.gameOver = true;
             gameState.wins[winnerColor]++;
@@ -672,40 +656,43 @@
 
             const isPlayer = winnerColor === PLAYER;
             playSound(isPlayer ? 'win' : 'lose');
-            updateStatus(isPlayer ? "HAS GUANYAT LA RONDA!" : "LA CPU HA GUANYAT LA RONDA!");
-
+            
             if (gameState.wins[winnerColor] >= WINS_TARGET) {
                 gameState.matchOver = true;
-                setTimeout(() => showMatchEndModal(winnerColor), 1000);
+                setTimeout(() => showMatchEndModal(winnerColor), 1200);
             }
+        }
+
+        function showMessageModal(title, text) {
+            document.getElementById('msg-title').innerText = title;
+            document.getElementById('msg-body').innerText = text;
+            document.getElementById('messageModal').style.display = 'flex';
         }
 
         function showMatchEndModal(winner) {
             const modal = document.getElementById('matchModal');
             const title = document.getElementById('match-winner-text');
             const msg = document.getElementById('match-msg');
-            
             if (winner === PLAYER) {
                 title.innerText = "VICTÒRIA FINAL!";
                 title.style.color = "#22c55e";
-                msg.innerText = "Has guanyat el matx contra la CPU.";
+                msg.innerText = "Enhorabona! Has guanyat el matx de 5 partides.";
                 playSound('win');
             } else {
                 title.innerText = "DERROTA FINAL...";
                 title.style.color = "#ef4444";
-                msg.innerText = "La CPU ha guanyat el matx.";
+                msg.innerText = "La CPU ha guanyat el matx. Torna-ho a intentar!";
                 playSound('lose');
             }
             modal.style.display = 'flex';
         }
 
-        // --- CPU ---
+        // --- INTEL·LIGÈNCIA ARTIFICIAL (CPU) ---
         function cpuMove() {
             if (gameState.gameOver || gameState.matchOver) return;
             const cpuInv = gameState.inventory[CPU];
             const availableShapes = SHAPES.filter(s => cpuInv[s] > 0);
             const emptyIndices = gameState.board.map((v, i) => v === null ? i : -1).filter(i => i !== -1);
-            
             let possibleMoves = [];
             for (let shape of availableShapes) {
                 for (let idx of emptyIndices) {
@@ -726,15 +713,14 @@
                 if (gameState.difficulty === 'easy') {
                     score = isWin ? 1000 : Math.random() * 10;
                 } else if (gameState.difficulty === 'medium') {
-                     if (isWin) score = 1000;
-                     else {
-                         if (checkForHumanWin(emptyIndices, move.idx) && Math.random() > 0.3) score = -500;
-                         else score = Math.random() * 10;
-                     }
+                    if (isWin) score = 1000;
+                    else {
+                        if (checkForHumanWin(emptyIndices, move.idx) && Math.random() > 0.3) score = -500;
+                        else score = Math.random() * 10;
+                    }
                 } else {
                     score = isWin ? 1000 : (checkForHumanWin(emptyIndices, move.idx) ? -500 : Math.random() * 10);
                 }
-
                 gameState.board[move.idx] = null;
                 if (score > bestScore) { bestScore = score; bestMove = move; }
             }
@@ -757,7 +743,7 @@
             return false;
         }
 
-        // --- UI RENDERING ---
+        // --- RENDERITZAT UI ---
         function renderBoard() {
             const boardEl = document.getElementById('board');
             boardEl.innerHTML = '';
@@ -766,18 +752,6 @@
                 div.id = `cell-${index}`;
                 div.className = 'cell';
                 div.onclick = () => cellClicked(index);
-
-                // Allow drop
-                div.ondragover = (e) => e.preventDefault();
-                div.ondrop = (e) => {
-                    e.preventDefault();
-                    // Basic Desktop HTML5 drop
-                    if (draggedShape) {
-                        if (isMoveValid(index, draggedShape, PLAYER)) executeMove(index, draggedShape, PLAYER);
-                        draggedShape = null;
-                    }
-                };
-
                 if (cell) {
                     const pieceDiv = document.createElement('div');
                     pieceDiv.className = `piece piece-${cell.color} ${cell.isNew ? 'piece-anim' : ''}`;
@@ -789,61 +763,37 @@
         }
 
         function renderInventories() {
-            // CPU
-            const cpuContainer = document.getElementById('cpu-inventory');
-            // Keep the label, clear items
-            const cpuLabel = cpuContainer.querySelector('.inv-label-inside');
-            cpuContainer.innerHTML = ''; 
-            cpuContainer.appendChild(cpuLabel);
-
-            SHAPES.forEach(shape => {
-                const count = gameState.inventory[CPU][shape];
-                const div = createInvItem(shape, count, CPU);
-                cpuContainer.appendChild(div);
-            });
-
-            // Player
-            const playerContainer = document.getElementById('player-inventory');
-            const playerLabel = playerContainer.querySelector('.inv-label-inside');
-            playerContainer.innerHTML = '';
-            playerContainer.appendChild(playerLabel);
-
-            SHAPES.forEach(shape => {
-                const count = gameState.inventory[PLAYER][shape];
-                const div = createInvItem(shape, count, PLAYER);
-                if (gameState.selectedPiece === shape) div.classList.add('selected');
-                
-                // Click to select (Desktop standard)
-                div.onclick = () => selectPiece(shape);
-                
-                // TOUCH Events (Mobile)
-                div.ontouchstart = (e) => initDrag(e, shape);
-                div.ontouchmove = (e) => moveGhost(e);
-                div.ontouchend = (e) => endDrag(e);
-
-                // MOUSE Events (Desktop Drag Simulation)
-                div.onmousedown = (e) => initDrag(e, shape);
-                window.onmousemove = (e) => { if(draggedShape) moveGhost(e); };
-                window.onmouseup = (e) => { if(draggedShape) endDrag(e); };
-
-                playerContainer.appendChild(div);
+            ['black', 'white'].forEach(color => {
+                const container = document.getElementById(`${color === 'black' ? 'cpu' : 'player'}-inventory`);
+                const label = container.querySelector('.inv-label-inside');
+                container.innerHTML = ''; 
+                container.appendChild(label);
+                SHAPES.forEach(shape => {
+                    const count = gameState.inventory[color][shape];
+                    const div = createInvItem(shape, count, color);
+                    if (color === 'white') {
+                        if (gameState.selectedPiece === shape) div.classList.add('selected');
+                        div.onclick = () => selectPiece(shape);
+                        div.ontouchstart = (e) => initDrag(e, shape);
+                        div.ontouchmove = (e) => moveGhost(e);
+                        div.ontouchend = (e) => endDrag(e);
+                        div.onmousedown = (e) => initDrag(e, shape);
+                    }
+                    container.appendChild(div);
+                });
             });
         }
 
         function createInvItem(shape, count, type) {
             const div = document.createElement('div');
             div.className = `inv-item ${count === 0 ? 'disabled' : ''}`;
-            
             const icon = document.createElement('div');
             icon.className = `piece piece-${type}`;
-            icon.style.width = '40px';
-            icon.style.height = '40px';
+            icon.style.width = '40px'; icon.style.height = '40px';
             icon.innerHTML = svgs[shape];
-            
             const countDiv = document.createElement('div');
             countDiv.className = 'inv-count';
             countDiv.innerText = `x${count}`;
-
             div.appendChild(icon);
             div.appendChild(countDiv);
             return div;
@@ -884,18 +834,18 @@
         }
 
         function resetMatch() {
-            document.getElementById('matchModal').style.display = 'none';
+            closeModal('matchModal');
             resetGame(true);
         }
 
-        // Modal
         function showRules() { document.getElementById('rulesModal').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) event.target.style.display = 'none';
-        }
+        
+        window.onmousemove = (e) => { if(draggedShape) moveGhost(e); };
+        window.onmouseup = (e) => { if(draggedShape) endDrag(e); };
+        window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; };
 
-        // Start
+        // Inici
         gameState.wins = { white: 0, black: 0 };
         changeDifficulty(); 
         resetGame(false);
